@@ -26,7 +26,7 @@ python -m pip install -e .
 ## Quick start
 
 ```python
-from walsa_pipelines import linefit
+from WaLSA_pipelines import linefit
 ```
 
 (See examples/ for current demos)
