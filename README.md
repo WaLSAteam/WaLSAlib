@@ -21,3 +21,20 @@ For now, install from a local clone:
 git clone https://github.com/WaLSAteam/WaLSA-Pipelines.git
 cd WaLSA-Pipelines
 python -m pip install -e .
+```
+
+## Quick start
+
+```python
+from walsa_pipelines import linefit
+```
+
+(See examples/ for current demos)
+
+## Contributing
+
+Contributions are welcome. If you plan to add a new routine/module, please open an issue first so we can agree on scope, dependencies, and how it fits the overall structure.
+
+## License
+
+Apache License 2.0 (see LICENSE).
