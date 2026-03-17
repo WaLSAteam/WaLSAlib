@@ -749,9 +749,15 @@ def _is_emission_present(
 # =============================================================================
 # Main WaLSA fitter
 # =============================================================================
+# Allowed fit models (internal)
+_FIT_MODELS = {
+    "voigt": voigt,
+    "asymmetric_voigt": asymmetric_voigt,
+}
+
 def WaLSA_LineFit(
     spectra,
-    fit_func=voigt,
+    fit_func="asymmetric_voigt",
     num_iterations=10,
     save_fitted_spectra=False,
     date_identifier=None,
@@ -920,6 +926,13 @@ def WaLSA_LineFit(
 
     if refwavelength is None or wavelengths is None or element is None:
         raise ValueError("refwavelength, wavelengths, and element must be provided.")
+    
+    # Allow users to pass fit_func as a string
+    if isinstance(fit_func, str):
+        key = fit_func.strip()
+        if key not in _FIT_MODELS:
+            raise ValueError(f"Unknown fit_func='{fit_func}'. Use one of {list(_FIT_MODELS.keys())}.")
+        fit_func = _FIT_MODELS[key]
 
     wavelengths = np.asarray(wavelengths, dtype=float)
     refwavelength = np.asarray(refwavelength, dtype=float)

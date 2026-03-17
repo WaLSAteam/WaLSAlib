@@ -3,9 +3,9 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "walsa-pipelines"
+name = "WaLSAlib"
 version = "0.1.0"
-description = "WaLSA-Pipelines: pipeline/auxiliary routines complementing WaLSAtools."
+description = "WaLSA community library: auxiliary routines complementing WaLSAtools."
 readme = "README.md"
 requires-python = ">=3.9"
 license = {text = "Apache-2.0"}
@@ -13,14 +13,17 @@ license = {text = "Apache-2.0"}
 dependencies = [
   "numpy",
   "scipy",
-  "astropy"
+  "astropy",
+  "matplotlib",
+  "WaLSAtools",
 ]
 
 [project.urls]
-Repository = "https://github.com/WaLSAteam/WaLSA-Pipelines"
+Repository = "https://github.com/WaLSAteam/WaLSAlib"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
+include = ["WaLSAlib*"]
