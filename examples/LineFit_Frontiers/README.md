@@ -1,37 +1,55 @@
-## LineFit (Frontiers) — Reproducible examples and synthetic testbed
+## LineFit (Frontiers) — Reproducible examples, synthetic testbed, and PoP hybrid emulation
 
-This directory contains the notebooks, synthetic data, and outputs used for the **LineFit** methods paper (*in preparation*) for the *Frontiers in Astronomy and Space Sciences* Research Topic:
+This directory contains the notebooks, synthetic data, and outputs used for the **LineFit** methods paper (*Jafarzadeh et al. 2026, in prep.*) for the *Frontiers in Astronomy and Space Sciences* Research Topic:
 
-**“Magnetohydrodynamic Motions: Daniel K. Inouye Solar Telescope’s Window into the Dynamic Sun”**
+**["Magnetohydrodynamic Motions: Daniel K. Inouye Solar Telescope’s Window into the Dynamic Sun"](https://www.frontiersin.org/research-topics/71781/magnetohydrodynamic-motions-daniel-k-inouye-solar-telescopes-window-into-the-dynamic-sun)**
 
-LineFit is aimed at producing stable **line-core intensity** and **LOS-velocity** time series from **dense spectral windows** where profiles evolve, become asymmetric, blend (including close pairs), or intermittently show split/self-reversal morphologies.  
+LineFit is aimed at producing stable **line-core intensity** and **LOS-velocity** time series from **dense spectral windows** where profiles evolve, become asymmetric, blend (including close pairs), or intermittently show split/self-reversal morphologies. Here it is **benchmarked on a synthetic spectral time series with known ground truth** and **compared against several common fast estimators** (parabolic minimum, COG, Fourier-phase centroid, and Poly6w), to quantify both instantaneous centre errors and downstream time-series/wave-diagnostic fidelity.
+
+In addition, this folder includes a **proof-of-principle (PoP) hybrid acceleration** demonstration: a lightweight supervised CNN emulator trained on **LineFit outputs** (labels) and combined with a **targeted LineFit fallback** for morphologically complex profiles. The purpose is to **show feasibility of accelerating LineFit-style processing by ~3–5 orders of magnitude (hardware-dependent)** while preserving the key velocity/wave diagnostics for the stress-case line. This PoP is intentionally limited in scope and is included to illustrate feasibility rather than to present a production ML pipeline.
 
 ---
 
 ### What is in this folder
 
-**Jupyter notebooks** that walk through the synthetic testbed generation, LineFit application, and downstream diagnostics:
+#### Core notebooks (paper figures + testbed)
 
-- **`synthetic_data.ipynb`**  
-  Builds the **synthetic near-UV time-series testbed** (with known, time-dependent “truth” line centres / velocities) designed to stress the key failure modes encountered in practice: evolving asymmetry, close blends, and intermittent split-core (reversal) morphology.  
+- **`Generate_synthetic_data.ipynb`**  
+  Builds the **synthetic near-UV time-series testbed** (with known, time-dependent “truth” line centres / velocities) designed to stress key failure modes encountered in practice: evolving asymmetry, close blends, and intermittent split-core (reversal) morphology.
 
 - **`Figure1.ipynb`**  
-  Runs LineFit on an example synthetic spectrum and produces **Figure 1** (fitted segments + recovered centres vs truth), illustrating the multi-line extraction in a crowded window.  
+  Runs LineFit on an example synthetic spectrum and produces **Figure 1** (fitted segments + recovered centres vs truth), illustrating multi-line extraction in a crowded window.
 
 - **`Figure2.ipynb`**  
   Produces **Figure 2**: single-time-step method comparison of **LineFit vs four fast baseline estimators**:
-  parabolic minimum, centre-of-gravity (COG) of absorption depression, Fourier-phase centroid, and weighted polynomial core fit (Poly6w).  This is used to demonstrate how LineFit’s multi-line, multi-segment approach can mitigate the failure modes that cause the baselines to break down.
+  parabolic minimum, centre-of-gravity (COG) of absorption depression, Fourier-phase centroid, and weighted polynomial core fit (Poly6w).
 
 - **`Figure3.ipynb`**  
-  Produces **Figure 3**: time-series comparison (LOS-velocity fidelity) to show how occasional mis-tracking events appear as excursions in the recovered velocity, especially for complex (e.g. split-core) cases.  This is used to demonstrate how LineFit’s multi-line, multi-segment approach can mitigate the failure modes that cause the baselines to break down.
+  Produces **Figure 3**: time-series comparison (LOS-velocity fidelity), highlighting how occasional mis-tracking events can introduce excursions and bias time-domain diagnostics.
 
 - **`Figure4.ipynb`**  
-  Produces **Figure 4**: propagation into **wave diagnostics** by computing Refined Global Wavelet Spectra (RGWS) from the recovered velocity time series and comparing against truth; this is used to demonstrate how centre-extraction failures can bias spectral power and peak structure. 
+  Produces **Figure 4**: propagation into **wave diagnostics** by computing Refined Global Wavelet Spectra (RGWS) from recovered velocity time series and comparing against truth.
 
-In addition to the notebooks, this directory includes:
+#### Supplementary PoP hybrid emulation (CNN + targeted fallback)
+
+- **`PoP_CNN_emulator.ipynb`**  
+  Runs the proof-of-principle CNN emulator + hybrid fallback workflow (training on LineFit labels; truth used only for evaluation), and writes the cached outputs used for Supplementary figures and summary metrics.
+
+- **`Figures_S1_S2.ipynb`**  
+  Generates the supplementary PoP figures from the cached emulator outputs:
+  (i) validation error distributions (histograms + CDFs) and  
+  (ii) RGWS preservation for the stress-case line.
+
+---
+
+### Data products
 
 - **`synthetic_nuv_testbed.fits`**  
-  The synthetic dense-window time series used by the figure notebooks (analysis-ready, with ground truth described in the manuscript).
+  Synthetic dense-window time series used by all notebooks (analysis-ready, including ground truth arrays described in the manuscript).
+
+---
+
+### Output folders
 
 - **`Figures/`**  
   PDF exports generated by the corresponding notebooks:
@@ -39,12 +57,24 @@ In addition to the notebooks, this directory includes:
   - `Figure2_methods_comparison.pdf`
   - `Figure3_velocities_comparison.pdf`
   - `Figure4_power_spectra_comparison.pdf`
+  - `FigureS1_val_error_hist_cdf.pdf`
+  - `FigureS2_rgws_line6.pdf`
 
 - **`Files/`**  
-  Outputs produced by the notebooks.
+  Cached outputs produced by the notebooks (used to avoid rerunning expensive steps):
+  - `Fig3_cache/` — cached velocity time series used by Figure 3
+  - `Fig4_cache/` — cached RGWS products used by Figure 4
+  - `PoP_CNN_emulator_outputs/` — PoP emulator outputs (model pack, metrics, timing, diagnostics, plots)
+  - `extracted_parameters_date_id_pixel_0.csv`, `fitted_spectra_date_id_pixel_0.fits` — example LineFit exports for Figure 1
 
 ---
 
 ### Figures and reuse note
 
 The PDFs in `Figures/` are generated outputs associated with an active manuscript workflow. Please do not redistribute or reuse them outside the WaLSA collaboration without checking with the LineFit author team first. Once the paper is published, we will add the final citation here and update any reuse guidance accordingly.
+
+---
+
+### License
+
+Code in this repository is released under the license stated in the repository-level `LICENSE` file. If you reuse or adapt any material from this folder, please follow that license and cite the accompanying paper once available.
