@@ -1,0 +1,103 @@
+{
+  "description": "Proof-of-principle hybrid CNN emulator for LineFit acceleration. Emulator predicts line-centre residuals relative to coarse centre. LineFit outputs are used as training labels; truth used only for validation.",
+  "model": "CNNLineEmbedWide (residual-to-coarse, validity-mask input, skip connection)",
+  "fixed_config": {
+    "lr": 0.001892149291938482,
+    "weight_decay": 7.61522710343447e-05,
+    "dropout_p": 0.04,
+    "huber_beta": 0.05,
+    "emb_dim": 16,
+    "batch_size": 256,
+    "sig_floor_pm": 0.05,
+    "ema_decay": 0.995,
+    "stress_diff_lambda": 0.0003
+  },
+  "fixed_seed": 7000,
+  "picked_tag": "best",
+  "splits": {
+    "train_frac_time": 0.8,
+    "cal_frac_within_train": 0.1,
+    "val_frac_time": 0.19999999999999996,
+    "note": "Strictly time-ordered; no shuffling across time boundaries."
+  },
+  "val_vs_linefit_pm": {
+    "mae_pm": 0.054793351254193115,
+    "rmse_pm": 0.09574818584326991,
+    "p95_abs_pm": 0.21100016534328445
+  },
+  "val_vs_truth_pm": {
+    "mae_pm": 0.0795604286241966,
+    "rmse_pm": 0.11825232943530571,
+    "p95_abs_pm": 0.2448443204164505
+  },
+  "cal_vs_truth_pm": {
+    "mae_pm": 0.0811618314900746,
+    "rmse_pm": 0.11062267084412589,
+    "p95_abs_pm": 0.22824069336056707
+  },
+  "val_vs_truth_allpacks": {
+    "best": {
+      "mae_pm": 0.0795604286241966,
+      "rmse_pm": 0.11825232943530571,
+      "p95_abs_pm": 0.2448443204164505
+    },
+    "ema": {
+      "mae_pm": 0.10981694012346756,
+      "rmse_pm": 0.1740319012806726,
+      "p95_abs_pm": 0.28278723806142797
+    }
+  },
+  "hybrid": {
+    "unc_pm_thresh": 0.14267906546592712,
+    "unc_thresh_rule": "P95 of MC-dropout std on 24 morph-flagged CAL samples",
+    "mc_passes": 30,
+    "frac_fallback": 0.020666666666666667,
+    "frac_emulator": 0.9793333333333334,
+    "morphology_flag": "splitcore_strict OR multipeak_scipy(height_rel=0.20)",
+    "morph_applied_to": "stress line only (line_idx=5)",
+    "unc_coverage_val_morph": {
+      "cov_1sigma": 0.43333333333333335,
+      "cov_2sigma": 0.7333333333333333,
+      "cov_3sigma": 0.8833333333333333
+    },
+    "note": "Fallback uses pre-computed LineFit targets in this PoP. In production, fallback would invoke LineFit for flagged time steps only."
+  },
+  "timing": {
+    "emulator_infer_pass_ms_valset": 114.00097271000008,
+    "emulator_infer_per_sample_us": 190.00162118333347,
+    "emulator_full_dataset_ms": 547.0811312500018,
+    "n_emulator_samples": 2938,
+    "fallback_timesteps_total": 62,
+    "fallback_timing_sample_size": 10,
+    "fallback_timing_strategy": "uniform sample across fallback time steps",
+    "fallback_linefit_per_step_s": 0.6836402375000035,
+    "fallback_linefit_extrapolated_s": 42.385694725000214,
+    "fallback_timing_method": "uniformly sampled 10/62 fallback steps, stress line (line 5) only, scaled to all fallback steps",
+    "fallback_line_fitted": 5,
+    "fallback_note": "LineFit timed for stress-case line only (not all 10), matching production hybrid behaviour. Full-run reference covers all 10 lines \u00d7 300 steps (scaled from 10 measured steps).",
+    "hybrid_total_s": 42.93277585625022,
+    "speedup_hybrid_vs_linefit": 1234.4182024811848,
+    "linefit_full_total_s": 52997.0,
+    "linefit_avg_per_timestep_s": 176.65666666666667,
+    "speedup_emulator_only": 96872.28634427488,
+    "n_val_samples": 600,
+    "repeats": 400,
+    "warmup": 25,
+    "mode": "torch.inference_mode",
+    "impl": "torchscript_trace",
+    "torch_threads": 6,
+    "linefit_params_for_fallback": {
+      "num_iterations": 20,
+      "window_size": 14,
+      "smoothing_window": 1,
+      "line_window": 28,
+      "line_min_hw": 14,
+      "line_max_hw": 36,
+      "reversal_line": 5
+    }
+  },
+  "plot_flags": {
+    "have_mpl": true,
+    "have_walsa": true
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "unc_pm_thresh": 0.14267906546592712,
+  "unc_thresh_rule": "P95 of MC-dropout std on 24 morph-flagged CAL samples",
+  "mc_passes": 30,
+  "frac_fallback": 0.020666666666666667,
+  "frac_emulator": 0.9793333333333334,
+  "morphology_flag": "splitcore_strict OR multipeak_scipy(height_rel=0.20)",
+  "morph_applied_to": "stress line only (line_idx=5)",
+  "unc_coverage_val_morph": {
+    "cov_1sigma": 0.43333333333333335,
+    "cov_2sigma": 0.7333333333333333,
+    "cov_3sigma": 0.8833333333333333
+  },
+  "note": "Fallback uses pre-computed LineFit targets in this PoP. In production, fallback would invoke LineFit for flagged time steps only."
+}
