@@ -935,11 +935,14 @@ def WaLSA_LineFit(
         fit_func = _FIT_MODELS[key]
 
     wavelengths = np.asarray(wavelengths, dtype=float)
-    refwavelength = np.asarray(refwavelength, dtype=float)
-    element = np.asarray(element, dtype=object)
+    refwavelength = np.atleast_1d(np.asarray(refwavelength, dtype=float))
+    element = np.atleast_1d(np.asarray(element, dtype=object))
 
     n_samples = image_data.shape[0]
-    n_lines = len(refwavelength)
+    n_lines = refwavelength.size
+
+    if element.size != n_lines:
+        raise ValueError("element must have same length as refwavelength")
 
     # --- DEBUG controls (edit) ---
     DEBUG_LINES = {5}
@@ -962,22 +965,22 @@ def WaLSA_LineFit(
             spatial_pixel_range = specific_spatial_pixel
 
     if per_line_window_size is not None:
-        per_line_window_size = np.asarray(per_line_window_size, dtype=int)
-        if per_line_window_size.shape[0] != n_lines:
+        per_line_window_size = np.atleast_1d(np.asarray(per_line_window_size, dtype=int))
+        if per_line_window_size.size != n_lines:
             raise ValueError("per_line_window_size must have same length as refwavelength")
         if np.any(per_line_window_size < 1):
             raise ValueError("per_line_window_size entries must be >= 1")
 
     if per_line_min_halfwin is not None:
-        per_line_min_halfwin = np.asarray(per_line_min_halfwin, dtype=int)
-        if per_line_min_halfwin.shape[0] != n_lines:
+        per_line_min_halfwin = np.atleast_1d(np.asarray(per_line_min_halfwin, dtype=int))
+        if per_line_min_halfwin.size != n_lines:
             raise ValueError("per_line_min_halfwin must have same length as refwavelength")
     else:
         per_line_min_halfwin = np.ones(n_lines, dtype=int) * 4
 
     if per_line_max_halfwin is not None:
-        per_line_max_halfwin = np.asarray(per_line_max_halfwin, dtype=int)
-        if per_line_max_halfwin.shape[0] != n_lines:
+        per_line_max_halfwin = np.atleast_1d(np.asarray(per_line_max_halfwin, dtype=int))
+        if per_line_max_halfwin.size != n_lines:
             raise ValueError("per_line_max_halfwin must have same length as refwavelength")
     else:
         if per_line_window_size is not None:
@@ -1026,8 +1029,8 @@ def WaLSA_LineFit(
             fwhm = properties.get("widths", np.full(pk.shape, 6.0, dtype=float))
 
         if init_centres_nm is not None:
-            init_centres_nm = np.asarray(init_centres_nm, dtype=float)
-            if init_centres_nm.shape[0] != n_lines:
+            init_centres_nm = np.atleast_1d(np.asarray(init_centres_nm, dtype=float))
+            if init_centres_nm.size != n_lines:
                 raise ValueError("init_centres_nm must have same length as refwavelength")
             fitted_centres = init_centres_nm.copy()
         else:
