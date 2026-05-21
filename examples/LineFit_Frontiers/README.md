@@ -1,6 +1,6 @@
 ## LineFit (Frontiers) — Reproducible examples, synthetic testbed, and PoP hybrid emulation
 
-This directory contains the notebooks, synthetic data, and outputs used for the **LineFit** methods paper (***[Jafarzadeh et al. 2026, in press](https://www.frontiersin.org/journals/astronomy-and-space-sciences/articles/10.3389/fspas.2026.1843842/abstract)***) in *Frontiers in Astronomy and Space Sciences*, part of the Research Topic:
+This directory contains the notebooks, synthetic data, and outputs used for the **LineFit** methods paper (***[Jafarzadeh et al. 2026, in press](https://www.frontiersin.org/journals/astronomy-and-space-sciences/articles/10.3389/fspas.2026.1843842/abstract)***; [preprint/arXiv PDF](https://arxiv.org/pdf/2605.20861)) in *Frontiers in Astronomy and Space Sciences*, part of the Research Topic:
 
 **["Magnetohydrodynamic Motions: Daniel K. Inouye Solar Telescope’s Window into the Dynamic Sun"](https://www.frontiersin.org/research-topics/71781/magnetohydrodynamic-motions-daniel-k-inouye-solar-telescopes-window-into-the-dynamic-sun)**
 
