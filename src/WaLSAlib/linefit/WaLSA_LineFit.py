@@ -40,6 +40,11 @@ Dependencies
 ------------
 numpy, scipy (curve_fit, find_peaks, uniform_filter1d, wofz), astropy (optional FITS writing), csv.
 
+Authors
+-------
+  WaLSA Team / Shahin Jafarzadeh (2026)
+  https://WaLSA.team
+  See: Jafarzadeh, S., Jess, D. B., Stangalini, M. et al. 2026, Frontiers in Astronomy and Space Sciences, 13, 1843842
 """
 
 import numpy as np  # type: ignore
