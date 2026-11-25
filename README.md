@@ -1,5 +1,5 @@
 <div style="display: block; margin-bottom: 20px;">
-    <img align="left" src="https://walsa.team/WaLSAlib_logo.svg" alt="WaLSAlib" width="400" height="auto">
+    <img align="left" src="docs/images/WaLSAlib_logo.svg" alt="WaLSAlib" width="400" height="auto">
 </div>
 
 <br><br><br>
