@@ -1,0 +1,17 @@
+include README.md LICENSE THIRD_PARTY_NOTICES.md pyproject.toml
+include CONTRIBUTING.md CHANGELOG.md build_support.py
+recursive-include vendor *.py *.md *.json LICENSE requirements.txt
+recursive-include tools *.py
+recursive-include tests/release *.py
+include docs/release.md docs/upstream.md docs/repository-review.md
+# No observational products, training runs, experiments, or bytecode in the sdist.
+prune examples
+prune research
+prune hybrid_runs
+prune build
+prune dist
+prune src/WaLSAlib/linefit/hybrid
+exclude src/WaLSAlib/WaLSA_ConvexHull.py
+prune tests/data
+prune .github
+global-exclude *.py[cod] .DS_Store
