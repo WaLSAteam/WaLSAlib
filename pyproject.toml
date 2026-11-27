@@ -33,7 +33,7 @@ softg = ["torch>=2.6", "torchvision>=0.21", "lightning>=2.5", "opencv-python-hea
 softg-gui = ["PyQt5>=5.15", "opencv-python-headless>=4.8", "torch>=2.6"]
 walsatools = ["WaLSAtools"]
 test = ["pytest>=8"]
-build = ["build>=1.2", "twine>=6"]
+build = ["build>=1.2", "twine>=6", "setuptools>=77", "wheel"]
 
 [project.urls]
 Homepage = "https://walsa.team"
