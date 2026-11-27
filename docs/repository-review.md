@@ -20,10 +20,12 @@ Scope: public baseline dbfed37, release infrastructure, and SoFT/SoFTg integrati
 
 ## Remaining maintainer actions
 
-Configure PyPI/TestPyPI ownership and Trusted Publishers, protected publishing environments, Actions PR creation, and main-branch review requirements. These account settings are not part of source code. Review the combined-distribution GPL obligations before publishing. No PyPI upload has been performed.
+Configure PyPI/TestPyPI ownership and Trusted Publishers, protected publishing environments, and main-branch review requirements. GitHub Actions and Actions PR creation were verified enabled. These account settings are not part of source code. Review the combined-distribution GPL obligations before publishing. No PyPI upload has been performed.
 
 Scientific acceptance of tracking/segmentation changes requires reference observations and domain review beyond packaging tests. SoFTg supplies no trained checkpoint in this snapshot; no trained-model accuracy claim is made. Desktop GUI and GPU workflows need platform-specific validation. Dependency lower bounds are declared compatibility floors, not a fully tested minimum-version matrix.
 
 Local installed-artifact verification on macOS arm64 / Python 3.12 passed all nine API/scientific contract tests, including the ML forward/backward, packaged CLI, and four-frame FITS/multiprocessing tracking checks. scikit-image 0.26 warns that the upstream erosion/dilation calls will be removed in 0.28; the dependency is therefore capped below 0.28 until upstream adapts them. The algorithms were left unchanged.
 
 Additional checks passed: clean sdist rebuild and base-only install (eight passed, one ML skip); SoFT optional analysis imports; dependency consistency; actionlint validation; and exclusion canaries covering known/unknown local modules and stale build outputs. PyPI returned HTTP 404 for the project name during preparation; this does not guarantee name availability or account ownership.
+
+GitHub Linux CI also passed the Python 3.10/3.12/3.13 distribution/install/rebuild matrix and Python 3.12 ML checks. Artifact actions were refreshed to Node.js 24 versions after the initial successful run reported Node.js 20 deprecation warnings; ordinary branch PRs run once rather than duplicating push and PR validation.
