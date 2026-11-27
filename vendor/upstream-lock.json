@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "components": {
+    "SoFT": {
+      "repository": "https://github.com/mib-unitn/SoFT.git",
+      "ref": "main",
+      "commit": "4de0a50844a655f427a7f9791e12ce32c953e6c4",
+      "files": [
+        "LICENSE",
+        "README.md",
+        "setup.py",
+        "soft/__init__.py",
+        "soft/soft.py",
+        "soft/extras.py"
+      ],
+      "sha256": {
+        "LICENSE": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+        "README.md": "43386a92b19c52e551a165012d7780538977f5431fd0e821cc84aa1be8f0dcbe",
+        "setup.py": "c045a5c23825af15aa78ef3f331447ed3ec4b6e50d5ff970f8bc821af50ccd3e",
+        "soft/__init__.py": "626743d73289b6e447c77287b073677451838fd4c3d45a57445a364fd6716179",
+        "soft/soft.py": "961705d31808aca928999e85e2d6c47e3131be5024a7853bbb56d15f11078853",
+        "soft/extras.py": "bae3ebc5c3205b85b850544b23689d79ef3f13b944b0489919e72f2f42efb607"
+      }
+    },
+    "SoFTg": {
+      "repository": "https://github.com/mib-unitn/SoFTg.git",
+      "ref": "main",
+      "commit": "5c1082a2b42f40c9c110ebeed7cbddc774d24f42",
+      "files": [
+        "LICENSE",
+        "README.md",
+        "requirements.txt",
+        "dataset.py",
+        "granule_detection_lib.py",
+        "label_tool.py",
+        "losses.py",
+        "model.py",
+        "predict.py",
+        "train.py",
+        "utils.py"
+      ],
+      "sha256": {
+        "LICENSE": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+        "README.md": "416b329d0a499eb9e2c2d301e264f387b0e613330c6cdc51e710501e93e4e1e2",
+        "requirements.txt": "601371a548f88e6998dde69653333dcd9ad5633d64f12e2a7bc9d6d46372a169",
+        "dataset.py": "c0b83994cc9dae64c38f66e6e6e0c35da48f4c7e2cc5fcc2e83318788d05ed37",
+        "granule_detection_lib.py": "d85d9a87b9cbd7a9aca68291eaa18cf0ca607dfc83969321d7452af545a5d596",
+        "label_tool.py": "84987978500fc4a198e7195c5d1666f894825d9681d983e8ecae5d6f3066d4a6",
+        "losses.py": "2bacad3a78ae0074b8e653062f4afa527ea2206c52d996171de4aec6c89d51af",
+        "model.py": "f6569ec8b3da194381d0d1901edbd3f8832b92245b2c54b29c93b8415d6d06a6",
+        "predict.py": "198a190959025a2c7d53b64c4fb4c95b8988a5ce25e74ff317167eb975d8a4fd",
+        "train.py": "be2e47a20d82a613241588a050219e409113af10c0be68b3b1b5be15739cf9bd",
+        "utils.py": "f1072c9b0b4608bf9cc7e50f9035e0f01f9fc622dab2ef8ee7a4a9af61551234"
+      }
+    }
+  }
+}

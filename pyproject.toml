@@ -1,29 +1,59 @@
 [build-system]
-requires = ["setuptools>=68", "wheel"]
+requires = ["setuptools>=77", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "WaLSAlib"
-version = "0.1.0"
-description = "WaLSA community library: auxiliary routines complementing WaLSAtools."
+version = "1.1.0"
+description = "WaLSA auxiliary routines for spectroscopy and solar feature tracking."
 readme = "README.md"
-requires-python = ">=3.9"
-license = {text = "Apache-2.0"}
-
+requires-python = ">=3.10"
+license = "Apache-2.0 AND GPL-3.0-only"
+license-files = ["LICENSE", "THIRD_PARTY_NOTICES.md", "vendor/SoFT/LICENSE", "vendor/SoFTg/LICENSE"]
+authors = [{name = "WaLSA Team"}]
+keywords = ["solar physics", "spectroscopy", "feature tracking", "granulation"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Scientific/Engineering :: Astronomy",
+]
 dependencies = [
-  "numpy",
-  "scipy",
-  "astropy",
-  "matplotlib",
-  "WaLSAtools",
+  "numpy>=1.23", "scipy>=1.10", "astropy>=5", "matplotlib>=3.6",
+  "pandas>=1.5", "scikit-image>=0.21,<0.28", "pathos>=0.3", "fastprogress>=1.0", "tqdm>=4.64",
 ]
 
+[project.optional-dependencies]
+soft-extras = ["sunpy[net,map]>=5", "EMD-signal>=1.6", "ipython>=8"]
+softg = ["torch>=2.6", "torchvision>=0.21", "lightning>=2.5", "opencv-python-headless>=4.8", "pillow>=9", "tensorboard>=2.12"]
+softg-gui = ["PyQt5>=5.15", "opencv-python-headless>=4.8", "torch>=2.6"]
+walsatools = ["WaLSAtools"]
+test = ["pytest>=8"]
+build = ["build>=1.2", "twine>=6"]
+
 [project.urls]
+Homepage = "https://walsa.team"
 Repository = "https://github.com/WaLSAteam/WaLSAlib"
+Issues = "https://github.com/WaLSAteam/WaLSAlib/issues"
+Documentation = "https://github.com/WaLSAteam/WaLSAlib#readme"
 
 [tool.setuptools]
-package-dir = {"" = "src"}
+package-dir = {"" = ".", "WaLSAlib" = "src/WaLSAlib"}
+py-modules = []
+include-package-data = false
+# Explicit release list: local experimental packages must never be discovered.
+packages = ["WaLSAlib", "WaLSAlib.linefit", "WaLSAlib._vendor", "WaLSAlib._vendor.soft", "WaLSAlib._vendor.softg"]
 
-[tool.setuptools.packages.find]
-where = ["src"]
-include = ["WaLSAlib*"]
+[tool.setuptools.exclude-package-data]
+"*" = ["__pycache__/*", "*.pyc"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests/release"]
+addopts = "-ra"
+
+[tool.setuptools.cmdclass]
+build_py = "build_support.ReleaseBuildPy"

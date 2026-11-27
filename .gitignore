@@ -128,3 +128,15 @@ Thumbs.db
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+# Unreleased research (original examples/LineFit_Frontiers/PoP_* remain tracked)
+hybrid_runs/
+research/
+examples/LineFit_Hybrid/
+examples/ConvexHull_SolarPore/
+src/WaLSAlib/linefit/hybrid/
+src/WaLSAlib/WaLSA_ConvexHull.py
+docs/linefit_hybrid*.md
+docs/convex_hull.md
+tests/test_hybrid.py
+tests/test_convex_hull*.py
+tests/data/convex_hull_idl/
